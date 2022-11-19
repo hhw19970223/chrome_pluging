@@ -1,0 +1,15 @@
+{
+  "name": "hhw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin.js",
+  "scripts": {
+   
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "concurrently": "^7.5.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system",
+        "outFile": "../../js/content-script.js",
+        "strict": false,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        // "sourceMap": true,
+        "baseUrl": "./", // types文件夹的相对路径
+        "paths": {
+            "*": ["types/*"]
+        },
+        // "declaration": true,
+        "lib": ["ES2015", "DOM"]
+    },
+}

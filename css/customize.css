@@ -1,0 +1,14 @@
+.center-font {
+    font-weight: 600;
+    font-family: "宋体";
+    padding-top: 5px;
+    line-height: 18px;
+}
+
+.center-header {
+    background-color: black;
+}
+
+.center-menu{
+    border-bottom: none;
+}
