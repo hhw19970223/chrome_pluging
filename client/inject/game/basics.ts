@@ -35,6 +35,10 @@ module HHW {
         teamX = pathList[1];
 
         if (isMo()) {
+            G.loginMgr.cnnMgr.on("ON_LOGIN", () => {
+                sendData(CONST.EVENT.on_login);
+            })
+
             setTimeout(() => {
                 mo.NET.gsMgr.on('G.SyncData', (route, arg, sync) => {
                     if (sync) {

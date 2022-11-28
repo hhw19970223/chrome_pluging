@@ -25,7 +25,8 @@ var HHW;
     HHW.sendMessToDevTool = sendMessToDevTool;
     /** 请求hhw进程 */
     function postReq(params, cb) {
-        var url = "http://" + window.location.hostname; //http://192.168.2.22
+        var url = "http://127.0.0.1";
+        // let url = "http://" + window.location.hostname; //http://192.168.2.22
         // url += `:8009/hhw/?modules=setTime&method=update&args={'newDate':'${timeStr}'}`;
         url += ":8008/hhw/";
         mo.NET.post(url, params, function (err, rst) {
@@ -38,7 +39,6 @@ var HHW;
     HHW.postReq = postReq;
     function request_mo(method, args, cb) {
         if (!G.gMgr.serverInfoMgr.isOpen('test99999')) {
-            console.error("test99999未配置");
             return;
         }
         if (!args)
@@ -171,6 +171,9 @@ var HHW;
         var pathList = window.location.pathname.split('/');
         HHW.teamX = pathList[1];
         if (isMo()) {
+            G.loginMgr.cnnMgr.on("ON_LOGIN", function () {
+                HHW.sendData("on_login" /* CONST.EVENT.on_login */);
+            });
             setTimeout(function () {
                 mo.NET.gsMgr.on('G.SyncData', function (route, arg, sync) {
                     if (sync) {

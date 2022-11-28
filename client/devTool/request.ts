@@ -42,6 +42,7 @@ module HHW {
         let data = request.data
         if (request.type == CONST.EVENT.init) {
             _init();
+            hMitt.emit(CONST.EVENT.init);
         } else if (sender.origin != _origin || request.identity != _identity_key) {
             return;
         } else if (request.type == CONST.EVENT.mess) {

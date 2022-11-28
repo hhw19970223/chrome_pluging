@@ -1,11 +1,8 @@
-.body-background {
-    background-image: url('../png/blackground.png');
-    background-size: cover;
+.router-background {
     opacity: 0.8;
-    height: 100%;
 }
 
-.center-background {
+.hhw-fill {
     height: 100%;
     width: 100%;
 }

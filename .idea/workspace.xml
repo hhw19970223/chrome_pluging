@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="871910ec-e521-422b-be12-649dce7506b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/devTool/basics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/basics.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/devTool/component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/devTool/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/devTool/page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/page.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/devTool/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/devTool/router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/router.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/inject/game/basics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/inject/game/basics.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/inject/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/inject/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/inject/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/inject/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/customize.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/customize.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/tools.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/png/blank.png" beforeDir="false" />
-    </list>
+    <list default="true" id="871910ec-e521-422b-be12-649dce7506b4" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -211,7 +195,7 @@
       <workItem from="1668648373590" duration="51000" />
       <workItem from="1668781667020" duration="1851000" />
       <workItem from="1669283413022" duration="703000" />
-      <workItem from="1669597808478" duration="2212000" />
+      <workItem from="1669597808478" duration="2892000" />
     </task>
     <task id="LOCAL-00001" summary="1.0.0">
       <created>1668821722808</created>
@@ -220,11 +204,25 @@
       <option name="project" value="LOCAL" />
       <updated>1668821722808</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="rank">
+      <created>1669619818453</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669619818453</updated>
+    </task>
+    <task id="LOCAL-00003" summary="rank">
+      <created>1669619857213</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669619857213</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4817000" />
+    <option name="totallyTimeSpent" value="5497000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -255,7 +253,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1.0.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.0.0" />
+    <MESSAGE value="rank" />
+    <option name="LAST_COMMIT_MESSAGE" value="rank" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">

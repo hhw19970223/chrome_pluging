@@ -10,12 +10,12 @@ module HHW {
 
                 onMounted(() => {
                     activeName.value = "rank";
-                    hMitt.on(CONST.EVENT.init_data, init);
+                    hMitt.on(CONST.EVENT.init, init);
                     init();
                 })
 
                 onUnmounted(() => {
-                    hMitt.off(CONST.EVENT.init_data, init);
+                    hMitt.off(CONST.EVENT.init, init);
                 })
 
                 function init() {
@@ -42,16 +42,18 @@ module HHW {
             },
             template: `
 <div class="common-layout">
-    <el-container v-if="isMo" class="body-background">
-        <el-tabs class="center-tabs" v-model="activeName">
-            <el-tab-pane v-for="(info, idx) in menuList" :key="idx" label="info.name" name="info.path"></el-tab-pane>
-        </el-tabs>
-        <div class="center-background">
-            <router-view></router-view>
-        </div>
-    </el-container>
-    <el-container v-else>
-        <img align="middle" src="../png/404.png"></img>
+    <el-container>
+        <el-main v-if="isMo">
+            <div>
+                <el-tabs class="center-tabs" v-model="activeName">
+                    <el-tab-pane v-for="(info, idx) in menuList" :key="idx" :label="info.name" :name="info.path"></el-tab-pane>
+                </el-tabs>
+            </div>
+            <div class="router-background">
+                <router-view></router-view>
+            </div>
+        </el-main>
+        <img v-else align="middle" src="../png/404.png"  style="margin: 10% auto;">
     </el-container>
 </div>            
             `
@@ -67,7 +69,7 @@ module HHW {
                 let formData = reactive({});
                 let visible = ref(false);
 
-                let columns_act = [
+                let columns_act = ref([
                     {
                         label: '批次id',
                         key: 'batchId',
@@ -83,8 +85,8 @@ module HHW {
                         key: 'type',
                         width: 250,
                         handler: (row, column, v, index) => {
-                            if (c_actDesc[v]) {
-                                return c_actDesc[v] + '(' + v + ')';
+                            if (c_actDesc.value[v]) {
+                                return c_actDesc.value[v] + '(' + v + ')';
                             } else {
                                 return v
                             }
@@ -141,9 +143,9 @@ module HHW {
                         key: 'ext',
                         width: 150
                     }
-                ];
+                ]);
 
-                let oper_list = [{
+                let oper_list = ref([{
                     key: "add",
                     width: 120,
                     label: "添加机器人",
@@ -154,17 +156,19 @@ module HHW {
                         }
                         show(row);
                     },
-                    show: (row, column, v, index) => {
+                    isShow: (row) => {
+                        if (!row) return false;
                         let type = row.type;
                         if (type >= 1 && type < 100) return true;
                         if (type >= 1001 && type < 2000) return true;
                         if (type >= 2001 && type < 3000) return true;
                         return false;
                     }
-                }]
+                }]);
                 
                 onMounted(() => {
                     hMitt.on(CONST.EVENT.init_data, init);
+                    hMitt.on(CONST.EVENT.on_login, init);
                     hMitt.on(CONST.EVENT.update_act, update_act);
                     init();
                     reset();
@@ -172,6 +176,7 @@ module HHW {
 
                 onUnmounted(() => {
                     hMitt.off(CONST.EVENT.init_data, init);
+                    hMitt.off(CONST.EVENT.on_login, init);
                     hMitt.off(CONST.EVENT.update_act, update_act);
                 })
 
@@ -213,8 +218,8 @@ module HHW {
                     reset();
                 }
 
-                function ok(args) {
-                    eval('addRoot', args);
+                function ok() {
+                    eval('addRoot', formData);
                     reset();
                 }
 
@@ -224,41 +229,46 @@ module HHW {
                     c_actDesc,
                     handleClose,
                     ok,
+                    show,
                     columns_act,
-                    oper_list
+                    oper_list,
+                    visible,
+                    formData
                 }
             },
             template: `
 <div class="common-layout">
     <el-container>
-        <el-dialog v-model="visible" title="添加机器人" width="550px" :before-close="handleClose">
-            <el-form label-width="100px" class="demo-ruleForm">
-                <el-form-item label="批次">
-                    <el-input v-model="formData.batchId" style="width: 60%" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="批次名称">
-                    <el-input v-model="formData.batchName" style="width: 60%" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="添加机器人数量">
-                    <el-input v-model="formData.rootNum" style="width: 60%"></el-input>
-                </el-form-item>
-                <el-form-item label="排行榜分数范围">
-                    <el-input v-model="formData.begin" style="width: 120px"></el-input>
-                    -
-                    <el-input v-model="formData.end" style="width: 120px"></el-input>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="handleClose">取 消</el-button>
-                    <el-button type="primary" @click="ok">确 定</el-button>
-                </span>
-            </template>
-        </el-dialog>
-        <div v-if>
-            <hhw-table v-model="actInfoList" :col_data_list="columns_act" :oper_list="oper_list" :oper_width="120"></hhw-table>
-        </div>
-        <p v-else class="center-rank-font">请先进入游戏</p>
+        <el-main>
+            <el-dialog v-model="visible" title="添加机器人" width="550px" :before-close="handleClose">
+                <el-form label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="批次">
+                        <el-input v-model="formData.batchId" style="width: 60%" disabled></el-input>
+                    </el-form-item>
+                    <el-form-item label="批次名称">
+                        <el-input v-model="formData.batchName" style="width: 60%" disabled></el-input>
+                    </el-form-item>
+                    <el-form-item label="机器人数量">
+                        <el-input v-model="formData.rootNum" style="width: 60%"></el-input>
+                    </el-form-item>
+                    <el-form-item label="排行榜分数">
+                        <el-input v-model="formData.begin" style="width: 120px"></el-input>
+                        -
+                        <el-input v-model="formData.end" style="width: 120px"></el-input>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <span class="dialog-footer">
+                        <el-button @click="handleClose">取 消</el-button>
+                        <el-button type="primary" @click="ok">确 定</el-button>
+                    </span>
+                </template>
+            </el-dialog>
+            <div v-if="grpId">
+                <hhw-table v-model="actInfoList" :col_data_list="columns_act" :oper_list="oper_list" :oper_width="120"></hhw-table>
+            </div>
+            <p v-else class="center-rank-font">请先进入游戏</p>
+        </el-main>
     </el-container>
 </div>            
             `

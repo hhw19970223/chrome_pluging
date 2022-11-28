@@ -20,7 +20,8 @@ module HHW {
 
     /** 请求hhw进程 */
     export function postReq(params, cb?: (err, rst) => void) {
-        let url = "http://" + window.location.hostname; //http://192.168.2.22
+        let url = "http://127.0.0.1";
+        // let url = "http://" + window.location.hostname; //http://192.168.2.22
         // url += `:8009/hhw/?modules=setTime&method=update&args={'newDate':'${timeStr}'}`;
         url += `:8008/hhw/`;
         mo.NET.post(url, params, (err, rst) => {
@@ -31,7 +32,6 @@ module HHW {
 
     export function request_mo(method, args, cb) {
         if (!G.gMgr.serverInfoMgr.isOpen('test99999')) {
-            console.error("test99999未配置");
             return;
         }
         if (!args) args = {};

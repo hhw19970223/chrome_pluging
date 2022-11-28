@@ -161,6 +161,10 @@ module HHW {
                         list.push(this.modelValue[i]);
                     }
                     this.dataList = list;
+                },
+
+                isShow(item, row) {
+                    return !item.isShow || item.isShow(row);
                 }
             },
             computed: {
@@ -193,8 +197,8 @@ module HHW {
         :fixed="item.fixed" align="center"></el-table-column>
     <el-table-column v-if="oper_list.length" label="操作" align="center" fixed="right" :width="oper_width">
         <template v-slot="scope">
-            <el-button v-if="!item.show || item.show()" v-for="item in oper_list" :key="item.key" size="small" type="danger"
-                @click="item.click(scope.row)">{{ item.label }}</el-button>
+            <el-button v-for="item1 in oper_list" v-show="isShow(item1, scope.row)" :key="item1.key" size="small" type="danger"
+                @click="item1.click(scope.row)">{{ item1.label }}</el-button>
         </template>
     </el-table-column>
 </el-table>

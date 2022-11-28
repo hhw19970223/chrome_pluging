@@ -55,6 +55,7 @@ var HHW;
         var data = request.data;
         if (request.type == "init" /* CONST.EVENT.init */) {
             _init();
+            HHW.hMitt.emit("init" /* CONST.EVENT.init */);
         }
         else if (sender.origin != _origin || request.identity != _identity_key) {
             return;
@@ -290,6 +291,9 @@ var HHW;
                         list.push(this.modelValue[i]);
                     }
                     this.dataList = list;
+                },
+                isShow: function (item, row) {
+                    return !item.isShow || item.isShow(row);
                 }
             },
             computed: {
@@ -305,7 +309,7 @@ var HHW;
                     this.getDataList();
                 }
             },
-            template: "\n<el-table :data=\"dataList\" style=\"width: 100%\">\n    <el-table-column v-if=\"col_data_list2.length\" type=\"expand\">\n        <template v-slot=\"props\">\n            <el-form label-position=\"left\" inline class=\"demo-table-expand\">\n                <el-form-item  v-for=\"(item) in col_data_list2\" :key=\"item.key\"\n                    :label=\"item.label\">\n                    <span>{{ props.row[item.key] }}</span>\n                </el-form-item>\n            </el-form>\n        </template>\n    </el-table-column>\n    <el-table-column :show-overflow-tooltip=\"true\"  v-for=\"(item) in col_data_list\" :key=\"item.key\"\n        :label=\"item.label\" :width=\"item.width || 200\" :formatter=\"item.handler\" :prop=\"item.key\"\n        :fixed=\"item.fixed\" align=\"center\"></el-table-column>\n    <el-table-column v-if=\"oper_list.length\" label=\"\u64CD\u4F5C\" align=\"center\" fixed=\"right\" :width=\"oper_width\">\n        <template v-slot=\"scope\">\n            <el-button v-if=\"!item.show || item.show()\" v-for=\"item in oper_list\" :key=\"item.key\" size=\"small\" type=\"danger\"\n                @click=\"item.click(scope.row)\">{{ item.label }}</el-button>\n        </template>\n    </el-table-column>\n</el-table>\n<div class=\"block\" style=\"float: right; margin-top: 30px;\">\n    <el-pagination @size-change=\"sizeChange\" @current-change=\"pageChange\"\n        :current-page=\"page\" :page-sizes=\"[10, 20, 50, 100]\" :page-size=\"pageSize\"\n        layout=\"total, sizes, prev, pager, next, jumper\" :total=\"total\">\n    </el-pagination>\n</div>"
+            template: "\n<el-table :data=\"dataList\" style=\"width: 100%\">\n    <el-table-column v-if=\"col_data_list2.length\" type=\"expand\">\n        <template v-slot=\"props\">\n            <el-form label-position=\"left\" inline class=\"demo-table-expand\">\n                <el-form-item  v-for=\"(item) in col_data_list2\" :key=\"item.key\"\n                    :label=\"item.label\">\n                    <span>{{ props.row[item.key] }}</span>\n                </el-form-item>\n            </el-form>\n        </template>\n    </el-table-column>\n    <el-table-column :show-overflow-tooltip=\"true\"  v-for=\"(item) in col_data_list\" :key=\"item.key\"\n        :label=\"item.label\" :width=\"item.width || 200\" :formatter=\"item.handler\" :prop=\"item.key\"\n        :fixed=\"item.fixed\" align=\"center\"></el-table-column>\n    <el-table-column v-if=\"oper_list.length\" label=\"\u64CD\u4F5C\" align=\"center\" fixed=\"right\" :width=\"oper_width\">\n        <template v-slot=\"scope\">\n            <el-button v-for=\"item1 in oper_list\" v-show=\"isShow(item1, scope.row)\" :key=\"item1.key\" size=\"small\" type=\"danger\"\n                @click=\"item1.click(scope.row)\">{{ item1.label }}</el-button>\n        </template>\n    </el-table-column>\n</el-table>\n<div class=\"block\" style=\"float: right; margin-top: 30px;\">\n    <el-pagination @size-change=\"sizeChange\" @current-change=\"pageChange\"\n        :current-page=\"page\" :page-sizes=\"[10, 20, 50, 100]\" :page-size=\"pageSize\"\n        layout=\"total, sizes, prev, pager, next, jumper\" :total=\"total\">\n    </el-pagination>\n</div>"
         };
     }
     HHW.getTable = getTable;
@@ -323,11 +327,11 @@ var HHW;
                 var isMo = HHW.ref(false);
                 HHW.onMounted(function () {
                     activeName.value = "rank";
-                    HHW.hMitt.on("init_data" /* CONST.EVENT.init_data */, init);
+                    HHW.hMitt.on("init" /* CONST.EVENT.init */, init);
                     init();
                 });
                 HHW.onUnmounted(function () {
-                    HHW.hMitt.off("init_data" /* CONST.EVENT.init_data */, init);
+                    HHW.hMitt.off("init" /* CONST.EVENT.init */, init);
                 });
                 function init() {
                     HHW.eval2("HHW.isMo()", function (rst) {
@@ -347,7 +351,7 @@ var HHW;
                     isMo: isMo
                 };
             },
-            template: "\n<div class=\"common-layout\">\n    <el-container v-if=\"isMo\" class=\"body-background\">\n        <el-tabs class=\"center-tabs\" v-model=\"activeName\">\n            <el-tab-pane v-for=\"(info, idx) in menuList\" :key=\"idx\" label=\"info.name\" name=\"info.path\"></el-tab-pane>\n        </el-tabs>\n        <div class=\"center-background\">\n            <router-view></router-view>\n        </div>\n    </el-container>\n    <el-container v-else>\n        <img align=\"middle\" src=\"../png/404.png\"></img>\n    </el-container>\n</div>            \n            "
+            template: "\n<div class=\"common-layout\">\n    <el-container>\n        <el-main v-if=\"isMo\">\n            <div>\n                <el-tabs class=\"center-tabs\" v-model=\"activeName\">\n                    <el-tab-pane v-for=\"(info, idx) in menuList\" :key=\"idx\" :label=\"info.name\" :name=\"info.path\"></el-tab-pane>\n                </el-tabs>\n            </div>\n            <div class=\"router-background\">\n                <router-view></router-view>\n            </div>\n        </el-main>\n        <img v-else align=\"middle\" src=\"../png/404.png\"  style=\"margin: 10% auto;\">\n    </el-container>\n</div>            \n            "
         };
     }
     HHW.router_center = router_center;
@@ -359,7 +363,7 @@ var HHW;
                 var c_actDesc = HHW.ref({});
                 var formData = HHW.reactive({});
                 var visible = HHW.ref(false);
-                var columns_act = [
+                var columns_act = HHW.ref([
                     {
                         label: '批次id',
                         key: 'batchId',
@@ -375,8 +379,8 @@ var HHW;
                         key: 'type',
                         width: 250,
                         handler: function (row, column, v, index) {
-                            if (c_actDesc[v]) {
-                                return c_actDesc[v] + '(' + v + ')';
+                            if (c_actDesc.value[v]) {
+                                return c_actDesc.value[v] + '(' + v + ')';
                             }
                             else {
                                 return v;
@@ -435,8 +439,8 @@ var HHW;
                         key: 'ext',
                         width: 150
                     }
-                ];
-                var oper_list = [{
+                ]);
+                var oper_list = HHW.ref([{
                         key: "add",
                         width: 120,
                         label: "添加机器人",
@@ -447,7 +451,9 @@ var HHW;
                             }
                             show(row);
                         },
-                        show: function (row, column, v, index) {
+                        isShow: function (row) {
+                            if (!row)
+                                return false;
                             var type = row.type;
                             if (type >= 1 && type < 100)
                                 return true;
@@ -457,15 +463,17 @@ var HHW;
                                 return true;
                             return false;
                         }
-                    }];
+                    }]);
                 HHW.onMounted(function () {
                     HHW.hMitt.on("init_data" /* CONST.EVENT.init_data */, init);
+                    HHW.hMitt.on("on_login" /* CONST.EVENT.on_login */, init);
                     HHW.hMitt.on("update_act" /* CONST.EVENT.update_act */, update_act);
                     init();
                     reset();
                 });
                 HHW.onUnmounted(function () {
                     HHW.hMitt.off("init_data" /* CONST.EVENT.init_data */, init);
+                    HHW.hMitt.off("on_login" /* CONST.EVENT.on_login */, init);
                     HHW.hMitt.off("update_act" /* CONST.EVENT.update_act */, update_act);
                 });
                 function update_act(list) {
@@ -500,8 +508,8 @@ var HHW;
                 function handleClose() {
                     reset();
                 }
-                function ok(args) {
-                    HHW.eval('addRoot', args);
+                function ok() {
+                    HHW.eval('addRoot', formData);
                     reset();
                 }
                 return {
@@ -510,11 +518,14 @@ var HHW;
                     c_actDesc: c_actDesc,
                     handleClose: handleClose,
                     ok: ok,
+                    show: show,
                     columns_act: columns_act,
-                    oper_list: oper_list
+                    oper_list: oper_list,
+                    visible: visible,
+                    formData: formData
                 };
             },
-            template: "\n<div class=\"common-layout\">\n    <el-container>\n        <el-dialog v-model=\"visible\" title=\"\u6DFB\u52A0\u673A\u5668\u4EBA\" width=\"550px\" :before-close=\"handleClose\">\n            <el-form label-width=\"100px\" class=\"demo-ruleForm\">\n                <el-form-item label=\"\u6279\u6B21\">\n                    <el-input v-model=\"formData.batchId\" style=\"width: 60%\" disabled></el-input>\n                </el-form-item>\n                <el-form-item label=\"\u6279\u6B21\u540D\u79F0\">\n                    <el-input v-model=\"formData.batchName\" style=\"width: 60%\" disabled></el-input>\n                </el-form-item>\n                <el-form-item label=\"\u6DFB\u52A0\u673A\u5668\u4EBA\u6570\u91CF\">\n                    <el-input v-model=\"formData.rootNum\" style=\"width: 60%\"></el-input>\n                </el-form-item>\n                <el-form-item label=\"\u6392\u884C\u699C\u5206\u6570\u8303\u56F4\">\n                    <el-input v-model=\"formData.begin\" style=\"width: 120px\"></el-input>\n                    -\n                    <el-input v-model=\"formData.end\" style=\"width: 120px\"></el-input>\n                </el-form-item>\n            </el-form>\n            <template #footer>\n                <span class=\"dialog-footer\">\n                    <el-button @click=\"handleClose\">\u53D6 \u6D88</el-button>\n                    <el-button type=\"primary\" @click=\"ok\">\u786E \u5B9A</el-button>\n                </span>\n            </template>\n        </el-dialog>\n        <div v-if>\n            <hhw-table v-model=\"actInfoList\" :col_data_list=\"columns_act\" :oper_list=\"oper_list\" :oper_width=\"120\"></hhw-table>\n        </div>\n        <p v-else class=\"center-rank-font\">\u8BF7\u5148\u8FDB\u5165\u6E38\u620F</p>\n    </el-container>\n</div>            \n            "
+            template: "\n<div class=\"common-layout\">\n    <el-container>\n        <el-main>\n            <el-dialog v-model=\"visible\" title=\"\u6DFB\u52A0\u673A\u5668\u4EBA\" width=\"550px\" :before-close=\"handleClose\">\n                <el-form label-width=\"100px\" class=\"demo-ruleForm\">\n                    <el-form-item label=\"\u6279\u6B21\">\n                        <el-input v-model=\"formData.batchId\" style=\"width: 60%\" disabled></el-input>\n                    </el-form-item>\n                    <el-form-item label=\"\u6279\u6B21\u540D\u79F0\">\n                        <el-input v-model=\"formData.batchName\" style=\"width: 60%\" disabled></el-input>\n                    </el-form-item>\n                    <el-form-item label=\"\u673A\u5668\u4EBA\u6570\u91CF\">\n                        <el-input v-model=\"formData.rootNum\" style=\"width: 60%\"></el-input>\n                    </el-form-item>\n                    <el-form-item label=\"\u6392\u884C\u699C\u5206\u6570\">\n                        <el-input v-model=\"formData.begin\" style=\"width: 120px\"></el-input>\n                        -\n                        <el-input v-model=\"formData.end\" style=\"width: 120px\"></el-input>\n                    </el-form-item>\n                </el-form>\n                <template #footer>\n                    <span class=\"dialog-footer\">\n                        <el-button @click=\"handleClose\">\u53D6 \u6D88</el-button>\n                        <el-button type=\"primary\" @click=\"ok\">\u786E \u5B9A</el-button>\n                    </span>\n                </template>\n            </el-dialog>\n            <div v-if=\"grpId\">\n                <hhw-table v-model=\"actInfoList\" :col_data_list=\"columns_act\" :oper_list=\"oper_list\" :oper_width=\"120\"></hhw-table>\n            </div>\n            <p v-else class=\"center-rank-font\">\u8BF7\u5148\u8FDB\u5165\u6E38\u620F</p>\n        </el-main>\n    </el-container>\n</div>            \n            "
         };
     }
     HHW.router_rank = router_rank;
