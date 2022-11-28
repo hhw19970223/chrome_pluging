@@ -2,7 +2,7 @@ module HHW {
     let _origin: string;
     let _identity_key: string;
 
-    export function _eval(key, args, cb) {
+    export function eval(key, args, cb?) {
         if (args) args = JSON.stringify(args)
         let str = `HHW.inject_tool('${key}', ${args})`
         chrome.devtools.inspectedWindow.eval(str, function (result, isException) {
@@ -12,7 +12,7 @@ module HHW {
         });
     }
 
-    export function _eval2(str, cb) {
+    export function eval2(str, cb?) {
         chrome.devtools.inspectedWindow.eval(str, function (result, isException) {
             if (!isException) {
                 if (cb) cb(result);
@@ -20,7 +20,7 @@ module HHW {
         });
     }
 
-    export function _eval3(str, cb) {
+    export function eval3(str, cb?) {
         chrome.devtools.inspectedWindow.eval(str, function (result, isException) {
             if (cb) cb(result, isException);
         });
@@ -32,7 +32,7 @@ module HHW {
      * @param lv 状态等级 2 warn 1 error
      */
     export function output(str: string, lv?: number) {//日志输出
-        _eval("output", { lv, str }, null);
+        eval("output", { lv, str }, null);
     }
 
     function _listener(request, sender, sendResponse, type: string) {
@@ -60,16 +60,14 @@ module HHW {
     }
 
     function _init() {
-        _eval2("window.location.origin", (rst) => {
+        eval2("window.location.origin", (rst) => {
             _origin = rst;
         })
 
-        _eval2("HHW.identity_key", (rst) => {
+        eval2("HHW.identity_key", (rst) => {
             _identity_key = rst;
         })
     }
-
-    _init();
 
     // chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
     //     _listener(request, sender, sendResponse, "onRequest");
@@ -78,4 +76,8 @@ module HHW {
     chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
         _listener(request, sender, sendResponse, "onMessage");
     });
+
+    (function() {
+        _init();
+    })()
 }

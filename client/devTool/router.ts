@@ -10,12 +10,8 @@ module HHW {
             component: router_center(),
             children: [
                 {
-                    path: 'blank',
-                    component: router_blank()
-                },
-                {
                     path: 'rank',
-                    component: router_center()
+                    component: router_rank()
                 },
             ],
         },

@@ -3,11 +3,15 @@ module CONST {
 
     /** 交互事件 */
     export const enum EVENT {
-        /** 测试 */
-        test = "test",
         /** inject初始化完成 */
         init = "init",
+        /** 游戏数据初始化完毕 */
+        init_data = "init_data",
         /** 消息 */
         mess = "mess",
+        /** 活动发生变化 */
+        update_act = "update_act",
+        /** 玩家登录 */
+        on_login = "on_login",
     }
 }

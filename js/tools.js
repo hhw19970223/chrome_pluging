@@ -31,19 +31,31 @@ var HHW;
         mo.NET.post(url, params, function (err, rst) {
             if (rst && typeof rst == "string")
                 rst = JSON.parse(rst);
-            cb(err, rst);
+            if (cb)
+                cb(err, rst);
         });
     }
     HHW.postReq = postReq;
+    function request_mo(method, args, cb) {
+        if (!G.gMgr.serverInfoMgr.isOpen('test99999')) {
+            console.error("test99999未配置");
+            return;
+        }
+        if (!args)
+            args = {};
+        args.method = method;
+        // G.gsRequest("test99999.testEnter", args, cb);
+        mo.NET.gsMgr.requestWithErr("server.test99999.testEnter", args, cb, function (err) {
+            sendMessToDevTool(err, 1);
+        });
+    }
+    HHW.request_mo = request_mo;
     window.addEventListener("message", function (messageEvent) {
         if (messageEvent && messageEvent.data) {
             var data = messageEvent.data;
         }
     });
     sendData("init" /* CONST.EVENT.init */);
-    setTimeout(function () {
-        sendData("test" /* CONST.EVENT.test */, "hahahahahha");
-    }, 1000);
 })(HHW || (HHW = {}));
 var HHW;
 (function (HHW) {
@@ -90,28 +102,106 @@ var HHW;
     }
     HHW.getCfgMap = getCfgMap;
 })(HHW || (HHW = {}));
-/// <reference path="./cfg.ts" />
 var HHW;
+(function (HHW) {
+    function getActList() {
+        HHW.request_mo("getActList", {}, function (rst) {
+            var list = [];
+            if (rst && rst.ext && rst.ext.actInfoMap) {
+                var actInfoMap = rst.ext.actInfoMap;
+                var batchMap = rst.ext.batchMap || {};
+                var tempMap = rst.ext.tempMap || {};
+                for (var batchId in actInfoMap) {
+                    var actInfo = actInfoMap[batchId];
+                    for (var key in actInfo) {
+                        if (["beginTime", "endTime", "showEndTime"].indexOf(key) > -1) {
+                            actInfo[key] = mo.DATE.fmt(mo.DATE.date(actInfo[key]));
+                        }
+                        else if (typeof actInfo[key] == 'object') {
+                            actInfo[key] = JSON.stringify(actInfo[key]);
+                        }
+                    }
+                    actInfo.name = batchMap[batchId] ? batchMap[batchId].name : "";
+                    actInfo.tempName = tempMap[actInfo.tempId] ? tempMap[actInfo.tempId].name : "";
+                    list.push(actInfo);
+                }
+                HHW.sendData("update_act" /* CONST.EVENT.update_act */, list);
+            }
+        });
+    }
+    HHW.getActList = getActList;
+})(HHW || (HHW = {}));
+/// <reference path="../request.ts" />
 /// <reference path="./cfg.ts" />
+/// <reference path="./act.ts" />
+var HHW;
+/// <reference path="../request.ts" />
+/// <reference path="./cfg.ts" />
+/// <reference path="./act.ts" />
 (function (HHW) {
     HHW.teamX = '';
     //获取当前区服
     function getGsGrpId() {
-        return G.gMgr.gsInfoMgr.selected.grpId;
+        return G.gMgr.usrCtrl.$$data.serverId;
     }
     HHW.getGsGrpId = getGsGrpId;
+    function isMo() {
+        return !!window['G'] && !!window['mo'] && !!window['G'].loginMgr;
+    }
+    HHW.isMo = isMo;
+    function reqHHW(modules, method, args, cb) {
+        if (!args)
+            args = {};
+        args.hhw_team = HHW.teamX;
+        args.hhw_gsIdx = getGsGrpId();
+        HHW.postReq({
+            modules: modules,
+            method: method,
+            args: args
+        }, function (err, rst) {
+            if (err)
+                HHW.sendMessToDevTool(err, 1);
+            else if (cb) {
+                cb(rst);
+            }
+        });
+    }
+    HHW.reqHHW = reqHHW;
     (function init() {
         var pathList = window.location.pathname.split('/');
         HHW.teamX = pathList[1];
+        if (isMo()) {
+            setTimeout(function () {
+                mo.NET.gsMgr.on('G.SyncData', function (route, arg, sync) {
+                    if (sync) {
+                        if (sync.actList) {
+                            HHW.getActList();
+                        }
+                    }
+                });
+                HHW.getCfgMap();
+                HHW.getActList();
+                HHW.sendData("init_data" /* CONST.EVENT.init_data */);
+            }, 2000);
+        }
     })();
 })(HHW || (HHW = {}));
+var HHW;
+(function (HHW) {
+    function addRoot(args) {
+        HHW.reqHHW('rank', 'addRoot', args, function (rst) {
+            HHW.sendMessToDevTool('操作成功');
+        });
+    }
+    HHW.addRoot = addRoot;
+})(HHW || (HHW = {}));
 /// <reference path="../common.ts" />
-/// <reference path="./request.ts" />
 /// <reference path="./game/basics.ts" />
+/// <reference path="./function/rank.ts" />
 var HHW;
 /// <reference path="../common.ts" />
-/// <reference path="./request.ts" />
 /// <reference path="./game/basics.ts" />
+/// <reference path="./function/rank.ts" />
 (function (HHW) {
     var proxy_data = new Proxy({}, {
         get: function (target, propKey, receiver) {
@@ -125,6 +215,7 @@ var HHW;
     var _functionMap = {
         output: output,
         changeSwitch: HHW.changeSwitch,
+        addRoot: HHW.addRoot,
     };
     function inject_tool(key, arg) {
         if (!!_functionMap[key]) {

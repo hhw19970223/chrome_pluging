@@ -2,17 +2,12 @@
 /// <reference path="./mitt.ts" />
 /// <reference path="./request.ts" />
 module CONST {
-    export const menuList1 = [
+    export const menuList = [
         {
             name: "排行榜填充",
-            path: "/rank",
+            path: "rank",
         }
     ];
-
-    /** vue事件 */
-    export const enum VUE_EVENT {
-
-    }
 }
 module HHW {
     export const ref = Vue.ref;

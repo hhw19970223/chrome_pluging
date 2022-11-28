@@ -10,5 +10,6 @@ module HHW {
     })
     .use(router)
     .component('hhw-dialog', getDialog())
+    .component('hhw-table', getTable())
     .mount('#app')
 }

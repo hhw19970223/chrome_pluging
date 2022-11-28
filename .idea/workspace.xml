@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="871910ec-e521-422b-be12-649dce7506b4" name="Default Changelist" comment="" />
+    <list default="true" id="871910ec-e521-422b-be12-649dce7506b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/devTool/basics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/basics.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/devTool/component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/devTool/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/devTool/page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/page.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/devTool/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/devTool/router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/devTool/router.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/inject/game/basics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/inject/game/basics.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/inject/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/inject/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/inject/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/inject/request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/customize.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/customize.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/tools.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/png/blank.png" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -12,20 +28,70 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/inject/game/basics.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/inject/game/cfg.ts">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package-lock.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/inject/tsconfig.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/inject/switch.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+            <state relative-caret-position="-285" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/inject/request.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-lock.json">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/devTool/index.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3643" />
+            <state>
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/devTool/router.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -33,11 +99,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="1.0.1" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/css/customize.css" />
+        <option value="$PROJECT_DIR$/client/inject/request.ts" />
+        <option value="$PROJECT_DIR$/client/devTool/router.ts" />
       </list>
     </option>
   </component>
@@ -63,6 +137,41 @@
               <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
               <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="content-script.js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="devTool" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="inject" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="inject" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chrome_pluging" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chrome_pluging" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -75,6 +184,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.gutterIcons" />
+    <property name="ts.external.directory.path" value="E:\webstrom\WebStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -99,19 +209,31 @@
       <option name="presentableId" value="Default" />
       <updated>1668648369980</updated>
       <workItem from="1668648373590" duration="51000" />
-      <workItem from="1668781667020" duration="1263000" />
+      <workItem from="1668781667020" duration="1851000" />
+      <workItem from="1669283413022" duration="703000" />
+      <workItem from="1669597808478" duration="2212000" />
     </task>
+    <task id="LOCAL-00001" summary="1.0.0">
+      <created>1668821722808</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668821722808</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1314000" />
+    <option name="totallyTimeSpent" value="4817000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -121,8 +243,8 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32991204" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4980185" weight="0.329429" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5019815" side_tool="true" visible="true" weight="0.32991204" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -136,17 +258,88 @@
     <option name="LAST_COMMIT_MESSAGE" value="1.0.0" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3643" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/devTool/request.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="55" column="20" lean-forward="true" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/customize.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/devTool/global.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/inject/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/inject/game/cfg.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/inject/game/basics.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/inject/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/inject/switch.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/devTool/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/inject/request.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/devTool/router.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

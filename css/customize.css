@@ -1,14 +1,21 @@
-.center-font {
-    font-weight: 600;
-    font-family: "宋体";
-    padding-top: 5px;
-    line-height: 18px;
+.body-background {
+    background-image: url('../png/blackground.png');
+    background-size: cover;
+    opacity: 0.8;
+    height: 100%;
 }
 
-.center-header {
-    background-color: black;
+.center-background {
+    height: 100%;
+    width: 100%;
 }
 
-.center-menu{
-    border-bottom: none;
+.center-tabs .el-tabs__item {
+    font-size: 16px;
+}
+
+.center-rank-font {
+    display: inline-block;
+    font-family: "楷体";
+    font-size: 18px;
 }

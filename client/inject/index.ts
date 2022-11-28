@@ -1,6 +1,6 @@
 /// <reference path="../common.ts" />
-/// <reference path="./request.ts" />
 /// <reference path="./game/basics.ts" />
+/// <reference path="./function/rank.ts" />
 module HHW {
 
     let proxy_data = new Proxy({}, {
@@ -17,6 +17,7 @@ module HHW {
     const _functionMap = {
         output,
         changeSwitch,
+        addRoot,
     }
 
     export function inject_tool(key, arg) {

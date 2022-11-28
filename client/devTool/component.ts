@@ -110,4 +110,100 @@ module HHW {
     `
         }
     }
+
+    /** 表格 */
+    export function getTable() {
+        return {
+            props: {
+                modelValue: {
+                    type: Array,
+                    default: [],
+                },
+                col_data_list: {
+                    type: Array,
+                    default: [],
+                },
+                oper_list: {
+                    type: Array,
+                    default: [],
+                },
+                oper_width: {
+                    type: Number,
+                    default: 100
+                }
+            },
+            data() {
+                return {
+                    dataList: [],
+                    total: 0,
+                    page: 1,
+                    pageSize: 10,
+                };
+            },
+
+            methods: {
+                pageChange(v) {
+                    this.page = v;
+                    this.getDataList();
+                },
+
+                sizeChange(v) {
+                    this.pageSize = v;
+                    this.getDataList();
+                },
+
+                getDataList() {
+                    let list = [];
+                    for (let i = (this.page - 1) * this.pageSize; i < this.page * this.pageSize; i++) {
+                        if (!this.modelValue[i]) {
+                            break;
+                        }
+                        list.push(this.modelValue[i]);
+                    }
+                    this.dataList = list;
+                }
+            },
+            computed: {
+                col_data_list2: function () {
+                    return this.col_data_list.filter((item) => { return !!item.status })
+                }
+            },
+            watch: {
+                modelValue(a, b) {
+                    this.page = 1;
+                    this.pageSize = 10;
+                    this.total = a.length;
+                    this.getDataList();
+                }
+            },
+            template: `
+<el-table :data="dataList" style="width: 100%">
+    <el-table-column v-if="col_data_list2.length" type="expand">
+        <template v-slot="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item  v-for="(item) in col_data_list2" :key="item.key"
+                    :label="item.label">
+                    <span>{{ props.row[item.key] }}</span>
+                </el-form-item>
+            </el-form>
+        </template>
+    </el-table-column>
+    <el-table-column :show-overflow-tooltip="true"  v-for="(item) in col_data_list" :key="item.key"
+        :label="item.label" :width="item.width || 200" :formatter="item.handler" :prop="item.key"
+        :fixed="item.fixed" align="center"></el-table-column>
+    <el-table-column v-if="oper_list.length" label="操作" align="center" fixed="right" :width="oper_width">
+        <template v-slot="scope">
+            <el-button v-if="!item.show || item.show()" v-for="item in oper_list" :key="item.key" size="small" type="danger"
+                @click="item.click(scope.row)">{{ item.label }}</el-button>
+        </template>
+    </el-table-column>
+</el-table>
+<div class="block" style="float: right; margin-top: 30px;">
+    <el-pagination @size-change="sizeChange" @current-change="pageChange"
+        :current-page="page" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper" :total="total">
+    </el-pagination>
+</div>`
+        }
+    }
 }
