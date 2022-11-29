@@ -8974,9 +8974,9 @@
     outline: 0
 }
 
-.el-input__inner::selection {
+/* .el-input__inner::selection {
     outline: 0
-}
+} */
 
 .el-input__inner[type=password]::-ms-reveal {
     display: none
