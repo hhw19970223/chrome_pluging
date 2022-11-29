@@ -149,20 +149,23 @@ var HHW;
         return !!window['G'] && !!window['mo'] && !!window['G'].loginMgr;
     }
     HHW.isMo = isMo;
-    function reqHHW(modules, method, args, cb) {
+    function reqHHW(module, method, args, cb) {
         if (!args)
             args = {};
         args.hhw_team = HHW.teamX;
         args.hhw_gsIdx = getGsGrpId();
         HHW.postReq({
-            modules: modules,
+            module: module,
             method: method,
             args: args
         }, function (err, rst) {
             if (err)
                 HHW.sendMessToDevTool(err, 1);
+            else if (rst.err) {
+                HHW.sendMessToDevTool(rst.err, 1);
+            }
             else if (cb) {
-                cb(rst);
+                cb(rst.data);
             }
         });
     }

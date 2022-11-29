@@ -41,7 +41,7 @@ module HHW {
                 }
             },
             template: `
-<div class="common-layout">
+<div>
     <el-container>
         <el-main v-if="isMo">
             <div>
@@ -237,33 +237,33 @@ module HHW {
                 }
             },
             template: `
-<div class="common-layout">
+<div>
+    <el-dialog v-model="visible" title="添加机器人" width="550px" :before-close="handleClose">
+        <el-form label-width="100px">
+            <el-form-item label="批次">
+                <el-input v-model="formData.batchId" style="width: 60%" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="批次名称">
+                <el-input v-model="formData.batchName" style="width: 60%" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="机器人数量">
+                <el-input type="text" v-model="formData.rootNum" style="width: 60%"></el-input>
+            </el-form-item>
+            <el-form-item label="排行榜分数">
+                <el-input type="text" v-model="formData.begin" style="width: 120px"></el-input>
+                -
+                <el-input type="text" v-model="formData.end" style="width: 120px"></el-input>
+            </el-form-item>
+        </el-form>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="handleClose">取 消</el-button>
+                <el-button type="primary" @click="ok">确 定</el-button>
+            </span>
+        </template>
+    </el-dialog>
     <el-container>
         <el-main>
-            <el-dialog v-model="visible" title="添加机器人" width="550px" :before-close="handleClose">
-                <el-form label-width="100px" class="demo-ruleForm">
-                    <el-form-item label="批次">
-                        <el-input v-model="formData.batchId" style="width: 60%" disabled></el-input>
-                    </el-form-item>
-                    <el-form-item label="批次名称">
-                        <el-input v-model="formData.batchName" style="width: 60%" disabled></el-input>
-                    </el-form-item>
-                    <el-form-item label="机器人数量">
-                        <el-input v-model="formData.rootNum" style="width: 60%"></el-input>
-                    </el-form-item>
-                    <el-form-item label="排行榜分数">
-                        <el-input v-model="formData.begin" style="width: 120px"></el-input>
-                        -
-                        <el-input v-model="formData.end" style="width: 120px"></el-input>
-                    </el-form-item>
-                </el-form>
-                <template #footer>
-                    <span class="dialog-footer">
-                        <el-button @click="handleClose">取 消</el-button>
-                        <el-button type="primary" @click="ok">确 定</el-button>
-                    </span>
-                </template>
-            </el-dialog>
             <div v-if="grpId">
                 <hhw-table v-model="actInfoList" :col_data_list="columns_act" :oper_list="oper_list" :oper_width="120"></hhw-table>
             </div>
