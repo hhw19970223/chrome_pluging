@@ -15,3 +15,25 @@ module CONST {
         on_login = "on_login",
     }
 }
+
+module HHW {
+    export interface HErrorInfo {
+        /** 类型 */
+        type: string;
+        /** error下的message */
+        message?: string;
+        /** error下的stack */
+        stack?: string;
+        /** 发生错误的列号 */
+        colno?: number;
+        /** 发生错误的行号 */
+        lineno?: number;
+        /** 报错代码文件名 */
+        filename?: string
+        /** 模块名 */
+        module?: string;
+        subModules?: string[];
+        layerList?: string[];
+        args?: any[];
+    }
+}

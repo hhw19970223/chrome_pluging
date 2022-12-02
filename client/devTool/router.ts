@@ -13,6 +13,11 @@ module HHW {
                     path: 'rank',
                     component: router_rank()
                 },
+                {
+                    path: 'record',
+                    component: router_record()
+
+                }
             ],
         },
         

@@ -6,6 +6,10 @@ module CONST {
         {
             name: "排行榜填充",
             path: "rank",
+        },
+        {
+            name: "回归记录",
+            path: "record",
         }
     ];
 }

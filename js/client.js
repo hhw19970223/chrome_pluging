@@ -106,6 +106,10 @@ var CONST;
         {
             name: "排行榜填充",
             path: "rank",
+        },
+        {
+            name: "回归记录",
+            path: "record",
         }
     ];
 })(CONST || (CONST = {}));
@@ -529,6 +533,14 @@ var HHW;
         };
     }
     HHW.router_rank = router_rank;
+    function router_record() {
+        return {
+            setup: function (props, ctx) {
+            },
+            template: "\n<div>\n    <el-container>\n        <el-main>\n            \n            \n        </el-main>\n    </el-container>\n</div>          \n          \n            "
+        };
+    }
+    HHW.router_record = router_record;
 })(HHW || (HHW = {}));
 /// <reference path="./page.ts" />
 var HHW;
@@ -547,6 +559,10 @@ var HHW;
                     path: 'rank',
                     component: HHW.router_rank()
                 },
+                {
+                    path: 'record',
+                    component: HHW.router_record()
+                }
             ],
         },
     ];

@@ -17,6 +17,7 @@ module HHW {
         if (!args) args = {};
         args.hhw_team = teamX;
         args.hhw_gsIdx = getGsGrpId();
+        args.hhw_clientV = mo.PROJ.version;
         
         postReq({
             module,

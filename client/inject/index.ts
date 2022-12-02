@@ -1,6 +1,8 @@
 /// <reference path="../common.ts" />
 /// <reference path="./game/basics.ts" />
 /// <reference path="./function/rank.ts" />
+
+/// <reference path="./log.ts" />
 module HHW {
 
     let proxy_data = new Proxy({}, {

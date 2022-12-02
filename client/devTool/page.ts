@@ -274,4 +274,23 @@ module HHW {
             `
         }
     }
+
+    export function router_record() {
+        return {
+            setup(props, ctx) {
+
+            },
+            template: `
+<div>
+    <el-container>
+        <el-main>
+            
+            
+        </el-main>
+    </el-container>
+</div>          
+          
+            `
+        }
+    }
 }

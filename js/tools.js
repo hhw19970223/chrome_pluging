@@ -154,6 +154,7 @@ var HHW;
             args = {};
         args.hhw_team = HHW.teamX;
         args.hhw_gsIdx = getGsGrpId();
+        args.hhw_clientV = mo.PROJ.version;
         HHW.postReq({
             module: module,
             method: method,
@@ -201,13 +202,150 @@ var HHW;
     }
     HHW.addRoot = addRoot;
 })(HHW || (HHW = {}));
+var HHW;
+(function (HHW) {
+    var HConsole = /** @class */ (function () {
+        function HConsole() {
+            this.LOG_METHODS = ['error']; //['log', 'info', 'warn', 'debug', 'error'];
+            this._origConsole = {};
+            this._switch = true; //false;
+            this.mockConsole();
+        }
+        Object.defineProperty(HConsole.prototype, "switch", {
+            set: function (status) {
+                this._switch = status;
+                if (status) {
+                    window.removeEventListener('error', this._catchWindowOnError);
+                    window.addEventListener('error', this._catchWindowOnError);
+                    window.removeEventListener('error', this._catchResourceError);
+                    window.addEventListener('error', this._catchResourceError, true);
+                    window.removeEventListener('unhandledrejection', this._catchUnhandledRejection);
+                    window.addEventListener('unhandledrejection', this._catchUnhandledRejection);
+                }
+                else {
+                    window.removeEventListener('error', this._catchWindowOnError);
+                    window.removeEventListener('error', this._catchResourceError);
+                    window.removeEventListener('unhandledrejection', this._catchUnhandledRejection);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        HConsole.prototype.mockConsole = function () {
+            var self = this;
+            if (self._origConsole.error) { //已经赋值过
+                return;
+            }
+            var methodList = self.LOG_METHODS;
+            methodList.map(function (method) {
+                self._origConsole[method] = window.console[method];
+            });
+            methodList.map(function (method) {
+                window.console[method] = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    self._origConsole[method].apply(window.console, args);
+                    var list = [method];
+                    list.push.apply(list, args);
+                    self._hander_console(list);
+                };
+            });
+        };
+        /**
+         * Recover `window.console`.
+         */
+        HConsole.prototype.unmockConsole = function () {
+            // recover original console methods
+            for (var method in this._origConsole) {
+                window.console[method] = this._origConsole[method];
+                delete this._origConsole[method];
+            }
+        };
+        HConsole.prototype._generate_log = function (errInfo) {
+            if (!errInfo || !this._switch)
+                return;
+            if (errInfo.message.indexOf('test99999未配置') > -1)
+                return;
+            try {
+                mo.$fillErrInfo(errInfo);
+            }
+            catch (e) {
+            }
+            console.warn(errInfo); //test
+        };
+        HConsole.prototype._hander_console = function (args) {
+            var type = args.shift();
+            var err = args.join(' ');
+            this._generate_log({
+                type: 'console.' + type,
+                message: err,
+            });
+        };
+        /**
+         * Catch `window.onerror`.
+         */
+        HConsole.prototype._catchWindowOnError = function (event) {
+            this._generate_log({
+                type: 'error',
+                message: event.error ? event.error.message : '',
+                stack: event.error && event.error.stack ? event.error.stack.toString() : '',
+                lineno: event.lineno,
+                colno: event.colno,
+                filename: event.filename
+            });
+        };
+        /**
+         * Catch resource loading error: image, video, link, script.
+         */
+        HConsole.prototype._catchResourceError = function (event) {
+            var target = event.target;
+            // only catch resources error
+            if (['link', 'video', 'script', 'img', 'audio'].indexOf(target.localName) > -1) {
+                var src = target.href || target.src || target.currentSrc;
+                this._generate_log({
+                    type: 'resourceError',
+                    message: "GET <".concat(target.localName, "> error: ").concat(src),
+                });
+            }
+        };
+        /**
+         * Catch `Promise.reject`.
+         * @reference https://developer.mozilla.org/en-US/docs/Web/API/Window/unhandledrejection_event
+         */
+        HConsole.prototype._catchUnhandledRejection = function (e) {
+            var error = e && e.reason;
+            var errorName = 'Uncaught (in promise) ';
+            var args = [errorName, error];
+            if (error instanceof Error) {
+                args = [
+                    errorName,
+                    {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack,
+                    },
+                ];
+            }
+            this._generate_log({
+                type: 'unhandledrejection',
+                args: args,
+            });
+        };
+        return HConsole;
+    }());
+    HHW.hConsole = new HConsole();
+})(HHW || (HHW = {}));
 /// <reference path="../common.ts" />
 /// <reference path="./game/basics.ts" />
 /// <reference path="./function/rank.ts" />
+/// <reference path="./log.ts" />
 var HHW;
 /// <reference path="../common.ts" />
 /// <reference path="./game/basics.ts" />
 /// <reference path="./function/rank.ts" />
+/// <reference path="./log.ts" />
 (function (HHW) {
     var proxy_data = new Proxy({}, {
         get: function (target, propKey, receiver) {
