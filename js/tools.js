@@ -208,6 +208,7 @@ var HHW;
         function HConsole() {
             this.LOG_METHODS = ['error']; //['log', 'info', 'warn', 'debug', 'error'];
             this._origConsole = {};
+            this._origG = {};
             this._switch = true; //false;
             this.mockConsole();
         }
@@ -239,6 +240,8 @@ var HHW;
             var methodList = self.LOG_METHODS;
             methodList.map(function (method) {
                 self._origConsole[method] = window.console[method];
+                if (HHW.isMo())
+                    self._origG[method] = G[method];
             });
             methodList.map(function (method) {
                 window.console[method] = function () {
@@ -251,6 +254,18 @@ var HHW;
                     list.push.apply(list, args);
                     self._hander_console(list);
                 };
+                if (HHW.isMo()) {
+                    G[method] = function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        self._origG[method].apply(G, args);
+                        var list = [method];
+                        list.push.apply(list, args);
+                        self._hander_console(list);
+                    };
+                }
             });
         };
         /**
@@ -261,6 +276,10 @@ var HHW;
             for (var method in this._origConsole) {
                 window.console[method] = this._origConsole[method];
                 delete this._origConsole[method];
+                if (HHW.isMo()) {
+                    G[method] = this._origG[method];
+                    delete this._origG[method];
+                }
             }
         };
         HConsole.prototype._generate_log = function (errInfo) {

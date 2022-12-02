@@ -1,8 +1,10 @@
 module HHW {
     class HConsole {
         public readonly LOG_METHODS: IConsoleLogMethod[] = ['error'];//['log', 'info', 'warn', 'debug', 'error'];
-        /** 存储被替换的文件 */
+        /** 存储被替换的console */
         private _origConsole: { [method: string]: Function };
+        /** 存储被替换的G下的打印 */
+        private _origG: { [method: string]: Function };
         private _switch: Boolean;
 
         public set switch(status: Boolean) {
@@ -25,6 +27,7 @@ module HHW {
 
         constructor() {
             this._origConsole = {};
+            this._origG = {};
             this._switch = true;//false;
             this.mockConsole();
         }
@@ -39,6 +42,8 @@ module HHW {
 
             methodList.map((method) => {
                 self._origConsole[method] = window.console[method];
+
+                if (isMo()) self._origG[method] = G[method];
             });
 
             methodList.map((method) => {
@@ -47,6 +52,15 @@ module HHW {
                     let list = [method];
                     list.push(...args);
                     self._hander_console(list);
+                }
+
+                if (isMo()) {
+                    G[method] = function (...args) {
+                        self._origG[method].apply(G, args);
+                        let list = [method];
+                        list.push(...args);
+                        self._hander_console(list);
+                    }
                 }
             });
         }
@@ -59,6 +73,11 @@ module HHW {
             for (const method in this._origConsole) {
                 window.console[method] = this._origConsole[method];
                 delete this._origConsole[method];
+
+                if (isMo()) {
+                    G[method] = this._origG[method];
+                    delete this._origG[method];
+                }
             }
         }
 
