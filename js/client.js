@@ -317,6 +317,32 @@ var HHW;
         };
     }
     HHW.getTable = getTable;
+    function getButton() {
+        return {
+            props: {
+                type: {
+                    type: Number,
+                    default: 1,
+                },
+                name: {
+                    type: String,
+                    default: 'test',
+                },
+            },
+            computed: {
+                activeClass: function () {
+                    var activeClass = {
+                        'h-btn-hover': true,
+                    };
+                    var key = 'color-' + this.type;
+                    activeClass[key] = true;
+                    return activeClass;
+                }
+            },
+            template: "\n<div class=\"h-btn\">\n    <button :class=\"activeClass\">{{ name }}</button>\n</div>            \n            "
+        };
+    }
+    HHW.getButton = getButton;
 })(HHW || (HHW = {}));
 /// <reference path="./basics.ts" />
 var HHW;
@@ -355,7 +381,7 @@ var HHW;
                     isMo: isMo
                 };
             },
-            template: "\n<div>\n    <el-container>\n        <el-main v-if=\"isMo\">\n            <div>\n                <el-tabs class=\"center-tabs\" v-model=\"activeName\">\n                    <el-tab-pane v-for=\"(info, idx) in menuList\" :key=\"idx\" :label=\"info.name\" :name=\"info.path\"></el-tab-pane>\n                </el-tabs>\n            </div>\n            <div class=\"router-background\">\n                <router-view></router-view>\n            </div>\n        </el-main>\n        <img v-else align=\"middle\" src=\"../png/404.png\"  style=\"margin: 10% auto;\">\n    </el-container>\n</div>            \n            "
+            template: "\n<div>\n    <el-container>\n        <el-main v-if=\"isMo\">\n            <div>\n                <el-tabs class=\"center-tabs\" v-model=\"activeName\">\n                    <el-tab-pane v-for=\"(info, idx) in menuList\" :key=\"idx\" :label=\"info.name\" :name=\"info.path\"></el-tab-pane>\n                </el-tabs>\n            </div>\n            <div>\n                <router-view></router-view>\n            <div>\n        </el-main>\n        <img v-else align=\"middle\" src=\"../png/404.png\"  style=\"margin: 10% auto; color: white\"/>\n    </el-container>\n</div>            \n            "
         };
     }
     HHW.router_center = router_center;
@@ -529,15 +555,29 @@ var HHW;
                     formData: formData
                 };
             },
-            template: "\n<div>\n    <el-dialog v-model=\"visible\" title=\"\u6DFB\u52A0\u673A\u5668\u4EBA\" width=\"550px\" :before-close=\"handleClose\">\n        <el-form label-width=\"100px\">\n            <el-form-item label=\"\u6279\u6B21\">\n                <el-input v-model=\"formData.batchId\" style=\"width: 60%\" disabled></el-input>\n            </el-form-item>\n            <el-form-item label=\"\u6279\u6B21\u540D\u79F0\">\n                <el-input v-model=\"formData.batchName\" style=\"width: 60%\" disabled></el-input>\n            </el-form-item>\n            <el-form-item label=\"\u673A\u5668\u4EBA\u6570\u91CF\">\n                <el-input type=\"text\" v-model=\"formData.rootNum\" style=\"width: 60%\"></el-input>\n            </el-form-item>\n            <el-form-item label=\"\u6392\u884C\u699C\u5206\u6570\">\n                <el-input type=\"text\" v-model=\"formData.begin\" style=\"width: 120px\"></el-input>\n                -\n                <el-input type=\"text\" v-model=\"formData.end\" style=\"width: 120px\"></el-input>\n            </el-form-item>\n        </el-form>\n        <template #footer>\n            <span class=\"dialog-footer\">\n                <el-button @click=\"handleClose\">\u53D6 \u6D88</el-button>\n                <el-button type=\"primary\" @click=\"ok\">\u786E \u5B9A</el-button>\n            </span>\n        </template>\n    </el-dialog>\n    <el-container>\n        <el-main>\n            <div v-if=\"grpId\">\n                <hhw-table v-model=\"actInfoList\" :col_data_list=\"columns_act\" :oper_list=\"oper_list\" :oper_width=\"120\"></hhw-table>\n            </div>\n            <p v-else class=\"center-rank-font\">\u8BF7\u5148\u8FDB\u5165\u6E38\u620F</p>\n        </el-main>\n    </el-container>\n</div>            \n            "
+            template: "\n<div style=\"background-color: rgba(255, 255, 255, 0.7)\">\n    <el-dialog v-model=\"visible\" title=\"\u6DFB\u52A0\u673A\u5668\u4EBA\" width=\"550px\" :before-close=\"handleClose\">\n        <el-form label-width=\"100px\">\n            <el-form-item label=\"\u6279\u6B21\">\n                <el-input v-model=\"formData.batchId\" style=\"width: 60%\" disabled></el-input>\n            </el-form-item>\n            <el-form-item label=\"\u6279\u6B21\u540D\u79F0\">\n                <el-input v-model=\"formData.batchName\" style=\"width: 60%\" disabled></el-input>\n            </el-form-item>\n            <el-form-item label=\"\u673A\u5668\u4EBA\u6570\u91CF\">\n                <el-input type=\"text\" v-model=\"formData.rootNum\" style=\"width: 60%\"></el-input>\n            </el-form-item>\n            <el-form-item label=\"\u6392\u884C\u699C\u5206\u6570\">\n                <el-input type=\"text\" v-model=\"formData.begin\" style=\"width: 120px\"></el-input>\n                -\n                <el-input type=\"text\" v-model=\"formData.end\" style=\"width: 120px\"></el-input>\n            </el-form-item>\n        </el-form>\n        <template #footer>\n            <span class=\"dialog-footer\">\n                <el-button @click=\"handleClose\">\u53D6 \u6D88</el-button>\n                <el-button type=\"primary\" @click=\"ok\">\u786E \u5B9A</el-button>\n            </span>\n        </template>\n    </el-dialog>\n    <el-container>\n        <el-main>\n            <div v-if=\"grpId\">\n                <hhw-table v-model=\"actInfoList\" :col_data_list=\"columns_act\" :oper_list=\"oper_list\" :oper_width=\"120\"></hhw-table>\n            </div>\n            <p v-else class=\"center-rank-font\">\u8BF7\u5148\u8FDB\u5165\u6E38\u620F</p>\n        </el-main>\n    </el-container>\n</div>            \n            "
         };
     }
     HHW.router_rank = router_rank;
     function router_record() {
         return {
             setup: function (props, ctx) {
+                function click1() {
+                    HHW.output('11111');
+                }
+                function click2() {
+                    HHW.output('111112');
+                }
+                function click3() {
+                    HHW.output('111113');
+                }
+                return {
+                    click1: click1,
+                    click2: click2,
+                    click3: click3,
+                };
             },
-            template: "\n<div>\n    <el-container>\n        <el-main>\n            \n            \n        </el-main>\n    </el-container>\n</div>          \n          \n            "
+            template: "\n<div>\n    <el-container>\n        <el-main>\n            <hhw-button :type=\"1\" name=\"\u751F\u6210\u56DE\u5F52\u8BB0\u5F55\" @click=\"click1\"></hhw-button>\n            <hhw-button :type=\"2\" name=\"\u56DE\u5F52\u8BB0\u5F55\u5217\u8868\" @click=\"click2\"></hhw-button>\n            <hhw-button :type=\"3\" name=\"\u9519\u8BEF\u8BB0\u5F55\u5217\u8868\" @click=\"click3\"></hhw-button>\n        </el-main>\n    </el-container>\n</div>          \n          \n            "
         };
     }
     HHW.router_record = router_record;
@@ -599,5 +639,6 @@ var HHW;
         .use(HHW.router)
         .component('hhw-dialog', HHW.getDialog())
         .component('hhw-table', HHW.getTable())
+        .component('hhw-button', HHW.getButton())
         .mount('#app');
 })(HHW || (HHW = {}));

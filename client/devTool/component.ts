@@ -210,4 +210,35 @@ module HHW {
 </div>`
         }
     }
+
+    export function getButton() {
+        return {
+            props: {
+                type: {
+                    type: Number,
+                    default: 1,
+                },
+                name: {
+                    type: String,
+                    default: 'test',
+                },
+            },
+            computed: {
+                activeClass() {
+                    let activeClass = {
+                        'h-btn-hover': true,
+                    };
+                    let key = 'color-' + this.type;
+                    activeClass[key] = true;
+                    return activeClass;
+                }
+            },
+            template: `
+<div class="h-btn">
+    <button :class="activeClass">{{ name }}</button>
+</div>            
+            `
+
+        }
+    }
 }

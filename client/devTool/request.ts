@@ -31,7 +31,7 @@ module HHW {
      * @param str 
      * @param lv 状态等级 2 warn 1 error
      */
-    export function output(str: string, lv?: number) {//日志输出
+    export function output(str: any, lv?: number) {//日志输出
         eval("output", { lv, str }, null);
     }
 

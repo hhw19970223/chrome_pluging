@@ -11,5 +11,6 @@ module HHW {
     .use(router)
     .component('hhw-dialog', getDialog())
     .component('hhw-table', getTable())
+    .component('hhw-button', getButton())
     .mount('#app')
 }

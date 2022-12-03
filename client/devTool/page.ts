@@ -49,11 +49,11 @@ module HHW {
                     <el-tab-pane v-for="(info, idx) in menuList" :key="idx" :label="info.name" :name="info.path"></el-tab-pane>
                 </el-tabs>
             </div>
-            <div class="router-background">
+            <div>
                 <router-view></router-view>
-            </div>
+            <div>
         </el-main>
-        <img v-else align="middle" src="../png/404.png"  style="margin: 10% auto;">
+        <img v-else align="middle" src="../png/404.png"  style="margin: 10% auto; color: white"/>
     </el-container>
 </div>            
             `
@@ -237,7 +237,7 @@ module HHW {
                 }
             },
             template: `
-<div>
+<div style="background-color: rgba(255, 255, 255, 0.7)">
     <el-dialog v-model="visible" title="添加机器人" width="550px" :before-close="handleClose">
         <el-form label-width="100px">
             <el-form-item label="批次">
@@ -278,14 +278,28 @@ module HHW {
     export function router_record() {
         return {
             setup(props, ctx) {
-
+                function click1() {
+                    output('11111');
+                }
+                function click2() {
+                    output('111112');
+                }
+                function click3() {
+                    output('111113');
+                }
+                return {
+                    click1,
+                    click2,
+                    click3,
+                }
             },
             template: `
 <div>
     <el-container>
         <el-main>
-            
-            
+            <hhw-button :type="1" name="生成回归记录" @click="click1"></hhw-button>
+            <hhw-button :type="2" name="回归记录列表" @click="click2"></hhw-button>
+            <hhw-button :type="3" name="错误记录列表" @click="click3"></hhw-button>
         </el-main>
     </el-container>
 </div>          
