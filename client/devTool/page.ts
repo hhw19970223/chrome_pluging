@@ -278,28 +278,33 @@ module HHW {
     export function router_record() {
         return {
             setup(props, ctx) {
-                function click1() {
-                    output('11111');
+                let map = ref({
+                    '1': '生成回归记录',
+                    '2': '回归记录列表',
+                    '3': '错误记录列表',
+                })
+
+                let type = ref("");
+
+                function isActive(key) {
+                    // return type.value == key;//暂时没用
+                    return false;
                 }
-                function click2() {
-                    output('111112');
-                }
-                function click3() {
-                    output('111113');
+
+                function click(key) {
+                    type.value = key;
                 }
                 return {
-                    click1,
-                    click2,
-                    click3,
+                    click,
+                    isActive,
+                    map
                 }
             },
             template: `
 <div>
     <el-container>
         <el-main>
-            <hhw-button :type="1" name="生成回归记录" @click="click1"></hhw-button>
-            <hhw-button :type="2" name="回归记录列表" @click="click2"></hhw-button>
-            <hhw-button :type="3" name="错误记录列表" @click="click3"></hhw-button>
+            <hhw-button v-for="(value, key) in map" :type="key" :name="value" :active="isActive(key)"  @click="click(key)"></hhw-button>
         </el-main>
     </el-container>
 </div>          

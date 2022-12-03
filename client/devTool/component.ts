@@ -222,11 +222,16 @@ module HHW {
                     type: String,
                     default: 'test',
                 },
+                active: {
+                    type: Boolean,
+                    default: false,
+                }
             },
             computed: {
                 activeClass() {
                     let activeClass = {
                         'h-btn-hover': true,
+                        'h-is-active': this.active
                     };
                     let key = 'color-' + this.type;
                     activeClass[key] = true;

@@ -1,5 +1,5 @@
 module HHW {
-    class HConsole {
+    class HLog {
         public readonly LOG_METHODS: IConsoleLogMethod[] = ['error'];//['log', 'info', 'warn', 'debug', 'error'];
         /** 存储被替换的console */
         private _origConsole: { [method: string]: Function };
@@ -158,5 +158,5 @@ module HHW {
         }
     }
 
-    export const hConsole: HConsole = new HConsole();
+    export const hLog: HLog = new HLog();
 }

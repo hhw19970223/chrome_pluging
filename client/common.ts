@@ -36,4 +36,19 @@ module HHW {
         layerList?: string[];
         args?: any[];
     }
+
+    export interface HClickInfo {
+        /** 类型手机还是web */
+        type: string;
+        /** 高度 */
+        h: number;
+        /** 宽度 */
+        w: number;
+        /** 点击坐标 xy*/
+        position: number[];
+        /** 模块名 */
+        module?: string;
+        subModules?: string[];
+        layerList?: string[];
+    }
 }

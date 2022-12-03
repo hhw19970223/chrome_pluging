@@ -1,3 +1,16 @@
+var HHW;
+(function (HHW) {
+    var HClick = /** @class */ (function () {
+        function HClick() {
+        }
+        /** 浏览器大小发生变化 */
+        HClick.resize = function (event) {
+        };
+        return HClick;
+    }());
+    HHW.HClick = HClick;
+    window.addEventListener('resize', HClick.resize);
+})(HHW || (HHW = {}));
 var CONST;
 (function (CONST) {
     CONST.identity_key = "HHWTOOL"; //身份标识
@@ -204,15 +217,15 @@ var HHW;
 })(HHW || (HHW = {}));
 var HHW;
 (function (HHW) {
-    var HConsole = /** @class */ (function () {
-        function HConsole() {
+    var HLog = /** @class */ (function () {
+        function HLog() {
             this.LOG_METHODS = ['error']; //['log', 'info', 'warn', 'debug', 'error'];
             this._origConsole = {};
             this._origG = {};
             this._switch = true; //false;
             this.mockConsole();
         }
-        Object.defineProperty(HConsole.prototype, "switch", {
+        Object.defineProperty(HLog.prototype, "switch", {
             set: function (status) {
                 this._switch = status;
                 if (status) {
@@ -232,7 +245,7 @@ var HHW;
             enumerable: false,
             configurable: true
         });
-        HConsole.prototype.mockConsole = function () {
+        HLog.prototype.mockConsole = function () {
             var self = this;
             if (self._origConsole.error) { //已经赋值过
                 return;
@@ -271,7 +284,7 @@ var HHW;
         /**
          * Recover `window.console`.
          */
-        HConsole.prototype.unmockConsole = function () {
+        HLog.prototype.unmockConsole = function () {
             // recover original console methods
             for (var method in this._origConsole) {
                 window.console[method] = this._origConsole[method];
@@ -282,7 +295,7 @@ var HHW;
                 }
             }
         };
-        HConsole.prototype._generate_log = function (errInfo) {
+        HLog.prototype._generate_log = function (errInfo) {
             if (!errInfo || !this._switch)
                 return;
             if (errInfo.message.indexOf('test99999未配置') > -1)
@@ -294,7 +307,7 @@ var HHW;
             }
             console.warn(errInfo); //test
         };
-        HConsole.prototype._hander_console = function (args) {
+        HLog.prototype._hander_console = function (args) {
             var type = args.shift();
             var err = args.join(' ');
             this._generate_log({
@@ -305,7 +318,7 @@ var HHW;
         /**
          * Catch `window.onerror`.
          */
-        HConsole.prototype._catchWindowOnError = function (event) {
+        HLog.prototype._catchWindowOnError = function (event) {
             this._generate_log({
                 type: 'error',
                 message: event.error ? event.error.message : '',
@@ -318,7 +331,7 @@ var HHW;
         /**
          * Catch resource loading error: image, video, link, script.
          */
-        HConsole.prototype._catchResourceError = function (event) {
+        HLog.prototype._catchResourceError = function (event) {
             var target = event.target;
             // only catch resources error
             if (['link', 'video', 'script', 'img', 'audio'].indexOf(target.localName) > -1) {
@@ -333,7 +346,7 @@ var HHW;
          * Catch `Promise.reject`.
          * @reference https://developer.mozilla.org/en-US/docs/Web/API/Window/unhandledrejection_event
          */
-        HConsole.prototype._catchUnhandledRejection = function (e) {
+        HLog.prototype._catchUnhandledRejection = function (e) {
             var error = e && e.reason;
             var errorName = 'Uncaught (in promise) ';
             var args = [errorName, error];
@@ -352,9 +365,9 @@ var HHW;
                 args: args,
             });
         };
-        return HConsole;
+        return HLog;
     }());
-    HHW.hConsole = new HConsole();
+    HHW.hLog = new HLog();
 })(HHW || (HHW = {}));
 /// <reference path="../common.ts" />
 /// <reference path="./game/basics.ts" />

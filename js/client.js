@@ -328,11 +328,16 @@ var HHW;
                     type: String,
                     default: 'test',
                 },
+                active: {
+                    type: Boolean,
+                    default: false,
+                }
             },
             computed: {
                 activeClass: function () {
                     var activeClass = {
                         'h-btn-hover': true,
+                        'h-is-active': this.active
                     };
                     var key = 'color-' + this.type;
                     activeClass[key] = true;
@@ -562,22 +567,26 @@ var HHW;
     function router_record() {
         return {
             setup: function (props, ctx) {
-                function click1() {
-                    HHW.output('11111');
+                var map = HHW.ref({
+                    '1': '生成回归记录',
+                    '2': '回归记录列表',
+                    '3': '错误记录列表',
+                });
+                var type = HHW.ref("");
+                function isActive(key) {
+                    // return type.value == key;//暂时没用
+                    return false;
                 }
-                function click2() {
-                    HHW.output('111112');
-                }
-                function click3() {
-                    HHW.output('111113');
+                function click(key) {
+                    type.value = key;
                 }
                 return {
-                    click1: click1,
-                    click2: click2,
-                    click3: click3,
+                    click: click,
+                    isActive: isActive,
+                    map: map
                 };
             },
-            template: "\n<div>\n    <el-container>\n        <el-main>\n            <hhw-button :type=\"1\" name=\"\u751F\u6210\u56DE\u5F52\u8BB0\u5F55\" @click=\"click1\"></hhw-button>\n            <hhw-button :type=\"2\" name=\"\u56DE\u5F52\u8BB0\u5F55\u5217\u8868\" @click=\"click2\"></hhw-button>\n            <hhw-button :type=\"3\" name=\"\u9519\u8BEF\u8BB0\u5F55\u5217\u8868\" @click=\"click3\"></hhw-button>\n        </el-main>\n    </el-container>\n</div>          \n          \n            "
+            template: "\n<div>\n    <el-container>\n        <el-main>\n            <hhw-button v-for=\"(value, key) in map\" :type=\"key\" :name=\"value\" :active=\"isActive(key)\"  @click=\"click(key)\"></hhw-button>\n        </el-main>\n    </el-container>\n</div>          \n          \n            "
         };
     }
     HHW.router_record = router_record;
