@@ -51,7 +51,7 @@ module HHW {
             </div>
             <div>
                 <router-view></router-view>
-            <div>
+            </div>
         </el-main>
         <img v-else align="middle" src="../png/404.png"  style="margin: 10% auto; color: white"/>
     </el-container>

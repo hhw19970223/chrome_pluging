@@ -59,7 +59,7 @@ var HHW;
 })(HHW || (HHW = {}));
 var HHW;
 (function (HHW) {
-    var cfgMap = {
+    HHW.cfgMap = {
         "c_item": [],
         "c_item_map": {},
         "c_actDesc": {},
@@ -70,35 +70,35 @@ var HHW;
                 return "continue";
             }
             else if (["c_actDesc"].indexOf(key) > -1) {
-                if (!mo.OBJ.isEmpty(cfgMap[key])) {
+                if (!mo.OBJ.isEmpty(HHW.cfgMap[key])) {
                     return "continue";
                 }
                 mo.D.each(key, function (temp, id) {
                     if (temp.id) {
-                        cfgMap[key][id] = temp.name;
+                        HHW.cfgMap[key][id] = temp.name;
                     }
                 });
             }
-            else if (!cfgMap[key].length) {
-                if (!mo.OBJ.isEmpty(cfgMap[key])) {
+            else if (!HHW.cfgMap[key].length) {
+                if (!mo.OBJ.isEmpty(HHW.cfgMap[key])) {
                     return "continue";
                 }
                 var is_item_1 = key == "c_item";
                 mo.D.each(key, function (temp, id) {
                     if (temp.id) {
                         if (is_item_1) {
-                            cfgMap["c_item_map"][temp.id] = temp.name;
+                            HHW.cfgMap["c_item_map"][temp.id] = temp.name;
                         }
                         var list = [temp.id, temp.name];
-                        cfgMap[key].push(list);
+                        HHW.cfgMap[key].push(list);
                     }
                 });
             }
         };
-        for (var key in cfgMap) {
+        for (var key in HHW.cfgMap) {
             _loop_1(key);
         }
-        return cfgMap;
+        return HHW.cfgMap;
     }
     HHW.getCfgMap = getCfgMap;
 })(HHW || (HHW = {}));

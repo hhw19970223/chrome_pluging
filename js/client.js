@@ -381,7 +381,7 @@ var HHW;
                     isMo: isMo
                 };
             },
-            template: "\n<div>\n    <el-container>\n        <el-main v-if=\"isMo\">\n            <div>\n                <el-tabs class=\"center-tabs\" v-model=\"activeName\">\n                    <el-tab-pane v-for=\"(info, idx) in menuList\" :key=\"idx\" :label=\"info.name\" :name=\"info.path\"></el-tab-pane>\n                </el-tabs>\n            </div>\n            <div>\n                <router-view></router-view>\n            <div>\n        </el-main>\n        <img v-else align=\"middle\" src=\"../png/404.png\"  style=\"margin: 10% auto; color: white\"/>\n    </el-container>\n</div>            \n            "
+            template: "\n<div>\n    <el-container>\n        <el-main v-if=\"isMo\">\n            <div>\n                <el-tabs class=\"center-tabs\" v-model=\"activeName\">\n                    <el-tab-pane v-for=\"(info, idx) in menuList\" :key=\"idx\" :label=\"info.name\" :name=\"info.path\"></el-tab-pane>\n                </el-tabs>\n            </div>\n            <div>\n                <router-view></router-view>\n            </div>\n        </el-main>\n        <img v-else align=\"middle\" src=\"../png/404.png\"  style=\"margin: 10% auto; color: white\"/>\n    </el-container>\n</div>            \n            "
         };
     }
     HHW.router_center = router_center;

@@ -1,5 +1,5 @@
 module HHW {
-    let cfgMap = {
+    export let cfgMap = {
         "c_item": [],
         "c_item_map": {},
         "c_actDesc": {},
