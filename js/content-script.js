@@ -2,6 +2,28 @@ var CONST;
 (function (CONST) {
     CONST.identity_key = "HHWTOOL"; //身份标识
 })(CONST || (CONST = {}));
+var HHW;
+(function (HHW) {
+    HHW.$ = {
+        "()": /\([^)]*\)/gi,
+        "[]": /\[[^\]]*\]/gi,
+        "{}": /\{[^}]*\}/gi
+    };
+    function getKuoHao(str, type, idx) {
+        if (type === void 0) { type = '()'; }
+        if (idx === void 0) { idx = 0; }
+        var v = str.match(HHW.$[type])[idx];
+        if (!v)
+            return '';
+        return v.substring(1, v.length - 2);
+    }
+    HHW.getKuoHao = getKuoHao;
+    function delKuoHao(str, type) {
+        if (type === void 0) { type = '()'; }
+        return str.replace(HHW.$[type], '');
+    }
+    HHW.delKuoHao = delKuoHao;
+})(HHW || (HHW = {}));
 /// <reference path="../common.ts" />
 var HHW;
 /// <reference path="../common.ts" />

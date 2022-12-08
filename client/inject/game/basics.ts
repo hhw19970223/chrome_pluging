@@ -13,6 +13,12 @@ module HHW {
         return !!window['G'] && !!window['mo'] && !!window['G'].loginMgr;
     }
 
+    //判断功能是否可以用
+    export function hasEgret() {
+        let el = document.querySelector(".egret-player");
+        return el && el["egret-player"] && el["egret-player"].stage;
+    }
+
     export function reqHHW(module: string, method: string, args: any, cb?: (rst) => void) {
         if (!args) args = {};
         args.hhw_team = teamX;

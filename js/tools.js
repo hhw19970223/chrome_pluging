@@ -1,20 +1,29 @@
-var HHW;
-(function (HHW) {
-    var HClick = /** @class */ (function () {
-        function HClick() {
-        }
-        /** 浏览器大小发生变化 */
-        HClick.resize = function (event) {
-        };
-        return HClick;
-    }());
-    HHW.HClick = HClick;
-    window.addEventListener('resize', HClick.resize);
-})(HHW || (HHW = {}));
 var CONST;
 (function (CONST) {
     CONST.identity_key = "HHWTOOL"; //身份标识
 })(CONST || (CONST = {}));
+var HHW;
+(function (HHW) {
+    HHW.$ = {
+        "()": /\([^)]*\)/gi,
+        "[]": /\[[^\]]*\]/gi,
+        "{}": /\{[^}]*\}/gi
+    };
+    function getKuoHao(str, type, idx) {
+        if (type === void 0) { type = '()'; }
+        if (idx === void 0) { idx = 0; }
+        var v = str.match(HHW.$[type])[idx];
+        if (!v)
+            return '';
+        return v.substring(1, v.length - 2);
+    }
+    HHW.getKuoHao = getKuoHao;
+    function delKuoHao(str, type) {
+        if (type === void 0) { type = '()'; }
+        return str.replace(HHW.$[type], '');
+    }
+    HHW.delKuoHao = delKuoHao;
+})(HHW || (HHW = {}));
 var HHW;
 (function (HHW) {
     HHW.identity_key = CONST.identity_key + (new Date).getTime(); //身份标识
@@ -162,6 +171,12 @@ var HHW;
         return !!window['G'] && !!window['mo'] && !!window['G'].loginMgr;
     }
     HHW.isMo = isMo;
+    //判断功能是否可以用
+    function hasEgret() {
+        var el = document.querySelector(".egret-player");
+        return el && el["egret-player"] && el["egret-player"].stage;
+    }
+    HHW.hasEgret = hasEgret;
     function reqHHW(module, method, args, cb) {
         if (!args)
             args = {};
@@ -208,12 +223,103 @@ var HHW;
 })(HHW || (HHW = {}));
 var HHW;
 (function (HHW) {
-    function addRoot(args) {
-        HHW.reqHHW('rank', 'addRoot', args, function (rst) {
-            HHW.sendMessToDevTool('操作成功');
-        });
+    var HAction = /** @class */ (function () {
+        function HAction() {
+            this._isDown = false;
+        }
+        HAction.prototype.onListen = function (event) {
+        };
+        return HAction;
+    }());
+    HHW.HAction = HAction;
+})(HHW || (HHW = {}));
+/// <reference path="./action.ts" />
+var HHW;
+/// <reference path="./action.ts" />
+(function (HHW) {
+    function _resize(event, isFirst) {
+        if (isFirst) {
+            HHW.isResize = false;
+        }
+        else if (HHW.height == window.screen.height && HHW.width == window.screen.width) {
+            return; //宽高无变化
+        }
+        HHW.isResize = true;
+        var ua = navigator.userAgent;
+        HHW.model = HHW.getKuoHao(navigator.userAgent);
+        if (ua.match(/(windows nt)\s([\d_]+)/i)) {
+            HHW.osType = "pc" /* CONST.OSTYPE.pc */;
+        }
+        else if (ua.match(/(android).*\s([\d_]+)/i)) {
+            HHW.osType = "android" /* CONST.OSTYPE.android */;
+        }
+        else if (ua.match(/(iphone).*\s([\d_]+)/i)) {
+            HHW.osType = "iphone" /* CONST.OSTYPE.iphone */;
+        }
+        else if (ua.match(/(ipad).*\s([\d_]+)/i)) {
+            HHW.osType = "ipad" /* CONST.OSTYPE.ipad */;
+        }
+        else if (ua.match(/(ipod).*\s([\d_]+)/i)) {
+            HHW.osType = "ipod" /* CONST.OSTYPE.ipod */;
+        }
+        else if (ua.match(/(Mac OS X).*\s([\d_]+)/i)) {
+            HHW.osType = "Mac OS" /* CONST.OSTYPE.mac_os */;
+        }
+        HHW.height = window.screen.height;
+        HHW.width = window.screen.width;
+        if (!isFirst)
+            HClick.resize(event);
     }
-    HHW.addRoot = addRoot;
+    var HClick = /** @class */ (function () {
+        function HClick() {
+            this.TOUCH_METHODS = ['onTouchBegin', 'onTouchMove', 'onTouchEnd'];
+            var self = this;
+            self._isDown = false;
+            self._origTouch = {};
+            _resize(null, true);
+            if (HHW.isMo() && HHW.hasEgret()) {
+                var _action = new HHW.HAction();
+                var webTouchHandler_1 = this._webTouchHandler = document.querySelector(".egret-player")['egret-player'].webTouchHandler;
+                var methodList = self.TOUCH_METHODS;
+                methodList.map(function (method) {
+                    self._origTouch[method] = webTouchHandler_1.touch[method];
+                });
+                methodList.map(function (method) {
+                    webTouchHandler_1.touch[method] = function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        self._origTouch[method].apply(webTouchHandler_1.touch, args);
+                        self['_' + method].apply(self, args);
+                    };
+                });
+                window.addEventListener('resize', _resize);
+            }
+        }
+        HClick.prototype._onTouchBegin = function (x, y, identifier) {
+            this._isDown = true;
+            console.log('TouchStart', x, y);
+        };
+        HClick.prototype._onTouchMove = function (x, y, identifier) {
+            if (this._isDown) {
+                console.log('TouchMove', x, y);
+            }
+        };
+        HClick.prototype._onTouchEnd = function (x, y, identifier) {
+            if (this._isDown == false)
+                return;
+            this._isDown = false;
+            console.log('TouchEnd', x, y);
+        };
+        /** 浏览器大小发生变化 */
+        HClick.resize = function (event) {
+            console.log(HHW.height, HHW.width);
+        };
+        return HClick;
+    }());
+    HHW.HClick = HClick;
+    HHW.hClick = new HClick();
 })(HHW || (HHW = {}));
 var HHW;
 (function (HHW) {
@@ -305,7 +411,7 @@ var HHW;
             }
             catch (e) {
             }
-            console.warn(errInfo); //test
+            // console.warn(errInfo);//test
         };
         HLog.prototype._hander_console = function (args) {
             var type = args.shift();
@@ -369,15 +475,26 @@ var HHW;
     }());
     HHW.hLog = new HLog();
 })(HHW || (HHW = {}));
+var HHW;
+(function (HHW) {
+    function addRoot(args) {
+        HHW.reqHHW('rank', 'addRoot', args, function (rst) {
+            HHW.sendMessToDevTool('操作成功');
+        });
+    }
+    HHW.addRoot = addRoot;
+})(HHW || (HHW = {}));
 /// <reference path="../common.ts" />
 /// <reference path="./game/basics.ts" />
+/// <reference path="./automation/click.ts" />
+/// <reference path="./automation/log.ts" />
 /// <reference path="./function/rank.ts" />
-/// <reference path="./log.ts" />
 var HHW;
 /// <reference path="../common.ts" />
 /// <reference path="./game/basics.ts" />
+/// <reference path="./automation/click.ts" />
+/// <reference path="./automation/log.ts" />
 /// <reference path="./function/rank.ts" />
-/// <reference path="./log.ts" />
 (function (HHW) {
     var proxy_data = new Proxy({}, {
         get: function (target, propKey, receiver) {

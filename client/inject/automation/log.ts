@@ -90,7 +90,7 @@ module HHW {
 
             }
 
-            console.warn(errInfo);//test
+            // console.warn(errInfo);//test
         }
 
         private _hander_console(args) {

@@ -215,8 +215,8 @@ module HHW {
         return {
             props: {
                 type: {
-                    type: Number,
-                    default: 1,
+                    type: String,
+                    default: '1',
                 },
                 name: {
                     type: String,

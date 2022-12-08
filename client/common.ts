@@ -14,6 +14,16 @@ module CONST {
         /** 玩家登录 */
         on_login = "on_login",
     }
+
+    export const enum OSTYPE {
+        ipod = "ipod",
+        ipad = "ipad",
+        iphone = "iphone",
+        android = "android",
+        /** 客户端型号: IOS产品 */
+        mac_os = "Mac OS",
+        pc = "pc",
+    }
 }
 
 module HHW {
@@ -50,5 +60,21 @@ module HHW {
         module?: string;
         subModules?: string[];
         layerList?: string[];
+    }
+
+    export const $ = {
+        "()": /\([^)]*\)/gi,
+        "[]": /\[[^\]]*\]/gi,
+        "{}": /\{[^}]*\}/gi
+    }
+
+    export function getKuoHao(str: string, type: '()' | '{}' | '[]' =  '()', idx: number = 0): string {
+        let v =  str.match($[type])[idx];
+        if (!v) return '';
+        return v.substring(1, v.length - 2);
+    }
+
+    export function delKuoHao(str: string, type: '()' | '{}' | '[]' =  '()' ): string {
+        return str.replace($[type], '');
     }
 }
